@@ -19,7 +19,7 @@ def download_images(ROOT_dir, urls, user_id):
     try:
         url_name = urls[i].split("/")[-1]
         url_name = url_name.split(".")[0]
-        image_name = user_id + f'_{url_name}.jpg'
+        image_name = f'{url_name}.jpg'
         
         result = requests.get(urls[i], timeout=60)
 

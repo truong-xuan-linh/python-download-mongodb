@@ -1,7 +1,7 @@
 import os
-import requests
+from urllib.request import Request, urlopen
 import matplotlib.pyplot as plt
-
+from PIL import Image
 def download_images(ROOT_dir, urls, user_id):
   start_index = 0
   image_names = []
@@ -19,14 +19,14 @@ def download_images(ROOT_dir, urls, user_id):
     try:
         url_name = urls[i].split("/")[-1]
         url_name = url_name.split(".")[0]
-        image_name = f'{url_name}.jpg'
-        
-        result = requests.get(urls[i], timeout=60)
-
+        image_name = user_id + f'_{url_name}.jpg'
         image_path = os.path.join(ROOT_dir, "images",user_id, image_name)
-        with open(image_path, 'wb') as f:
-            f.write(result.content)
-            f.close()
+
+        req = Request(url_name, headers={'User-Agent': 'Mozilla/5.0'})
+        webpage = urlopen(req)
+        img = Image.open(webpage)
+        img.save(image_path)
+
         try:
             plt.imread(image_path)
             image_names.append(image_name)

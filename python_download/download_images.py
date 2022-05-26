@@ -22,7 +22,7 @@ def download_images(ROOT_dir, urls, user_id):
         image_name = user_id + f'_{url_name}.jpg'
         image_path = os.path.join(ROOT_dir, "images",user_id, image_name)
 
-        req = Request(url_name, headers={'User-Agent': 'Mozilla/5.0'})
+        req = Request(urls[i], headers={'User-Agent': 'Mozilla/5.0'})
         webpage = urlopen(req)
         img = Image.open(webpage)
         img.save(image_path)
